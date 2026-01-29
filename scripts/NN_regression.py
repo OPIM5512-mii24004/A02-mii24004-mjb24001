@@ -47,7 +47,7 @@ X_train_scaled
 mlp = MLPRegressor(random_state=42,
                    hidden_layer_sizes=(10,5),
                    max_iter=200,
-                   batch_size=1000,
+                   batch_size=500,
                    activation="relu",
                    validation_fraction=0.2,
                    early_stopping=True) # important!
@@ -67,19 +67,24 @@ def scatter_with_reference(y_true, y_pred, title):
     lo = min(np.min(y_true), np.min(y_pred))
     hi = max(np.max(y_true), np.max(y_pred))
     plt.plot([lo, hi], [lo, hi], linewidth=1, color='red')  # reference line
-    plt.xlabel("Actual MedHouseVal")
-    plt.ylabel("Predicted MedHouseVal")
-    plt.title(title)
+    plt.xlabel("Actual MedHouseVal", fontsize = 12)
+    plt.ylabel("Predicted MedHouseVal", fontsize = 12)
+    plt.title(title, fontweight='bold')
     plt.tight_layout()
     plt.show()
 
 # Plot training predictions vs actual
 scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
 
+# Print metrics for training
+print(f"Test R2: {r2_score(y_train, y_pred_train):.3f}")
+print(f"Test MAE: {mean_absolute_error(y_train, y_pred_train):.3f}")
+print(f"Test MAPE: {mean_absolute_percentage_error(y_train, y_pred_train):.3f}")
+
 # PR #4: Add test predictions + plot
 scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test")
 
-# Print metrics
+# Print metrics for testing
 print(f"Test R2: {r2_score(y_test, y_pred_test):.3f}")
 print(f"Test MAE: {mean_absolute_error(y_test, y_pred_test):.3f}")
 print(f"Test MAPE: {mean_absolute_percentage_error(y_test, y_pred_test):.3f}")
