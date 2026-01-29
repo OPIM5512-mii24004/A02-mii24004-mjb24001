@@ -1,6 +1,7 @@
 # Import necessary packages
 
 import warnings
+import os
 warnings.filterwarnings("ignore")  # keep output clean; MLP may warn about convergence
 
 from sklearn.datasets import fetch_california_housing
@@ -61,7 +62,7 @@ y_pred_val   = mlp.predict(X_val_scaled)
 y_pred_test  = mlp.predict(X_test_scaled)
 
 # Define plot function 
-def scatter_with_reference(y_true, y_pred, title):
+def scatter_with_reference(y_true, y_pred, title, filename=None):
     plt.figure(figsize=(6,6))
     plt.scatter(y_true, y_pred, alpha=0.3, s=10)
     lo = min(np.min(y_true), np.min(y_pred))
@@ -71,10 +72,20 @@ def scatter_with_reference(y_true, y_pred, title):
     plt.ylabel("Predicted MedHouseVal", fontsize = 12)
     plt.title(title, fontweight='bold')
     plt.tight_layout()
+    
+    if filename:
+        # Define output directory
+        output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures")
+        os.makedirs(output_dir, exist_ok=True)
+        
+        save_path = os.path.join(output_dir, filename)
+        plt.savefig(save_path)
+        print(f"Saved figure to {save_path}")
+
     plt.show()
 
 # Plot training predictions vs actual
-scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
+scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train", "train_plot.png")
 
 # Print metrics for training
 print(f"Test R2: {r2_score(y_train, y_pred_train):.3f}")
@@ -82,9 +93,10 @@ print(f"Test MAE: {mean_absolute_error(y_train, y_pred_train):.3f}")
 print(f"Test MAPE: {mean_absolute_percentage_error(y_train, y_pred_train):.3f}")
 
 # PR #4: Add test predictions + plot
-scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test")
+scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test", "test_plot.png")
 
 # Print metrics for testing
 print(f"Test R2: {r2_score(y_test, y_pred_test):.3f}")
 print(f"Test MAE: {mean_absolute_error(y_test, y_pred_test):.3f}")
 print(f"Test MAPE: {mean_absolute_percentage_error(y_test, y_pred_test):.3f}")
+
