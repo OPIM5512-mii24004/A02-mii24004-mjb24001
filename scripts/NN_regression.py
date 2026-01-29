@@ -76,7 +76,7 @@ def scatter_with_reference(y_true, y_pred, title):
 # Plot training predictions vs actual
 scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
 
-# Plot test predictions vs actual
+# PR #4: Add test predictions + plot
 scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test")
 
 # Print metrics
