@@ -31,3 +31,24 @@ X_train, X_temp, y_train, y_temp = train_test_split(
 X_val, X_test, y_val, y_test = train_test_split(
     X_temp, y_temp, test_size=0.5, random_state=42
 )
+
+
+# Scale the data
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_val_scaled   = scaler.transform(X_val)
+X_test_scaled  = scaler.transform(X_test)
+
+X_train_scaled
+
+
+#PR #2: Add MLPRegressor with early stopping
+
+mlp = MLPRegressor(random_state=42,
+                   hidden_layer_sizes=(10,5),
+                   max_iter=200,
+                   batch_size=1000,
+                   activation="relu",
+                   validation_fraction=0.2,
+                   early_stopping=True) # important!
+mlp.fit(X_train_scaled, y_train)
