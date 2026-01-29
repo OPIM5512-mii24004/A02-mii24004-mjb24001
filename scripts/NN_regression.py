@@ -20,7 +20,7 @@ print(data.DESCR)  # dataset description
 X = data.frame.drop(columns=["MedHouseVal"])
 y = data.frame["MedHouseVal"]
 
-#Split train and test
+# Split train and test
 
 # train
 X_train, X_temp, y_train, y_temp = train_test_split(
@@ -52,3 +52,26 @@ mlp = MLPRegressor(random_state=42,
                    validation_fraction=0.2,
                    early_stopping=True) # important!
 mlp.fit(X_train_scaled, y_train)
+
+
+# Predict on train, validation, and test
+
+y_pred_train = mlp.predict(X_train_scaled)
+y_pred_val   = mlp.predict(X_val_scaled)
+y_pred_test  = mlp.predict(X_test_scaled)
+
+# Define plot function 
+def scatter_with_reference(y_true, y_pred, title):
+    plt.figure(figsize=(6,6))
+    plt.scatter(y_true, y_pred, alpha=0.3, s=10)
+    lo = min(np.min(y_true), np.min(y_pred))
+    hi = max(np.max(y_true), np.max(y_pred))
+    plt.plot([lo, hi], [lo, hi], linewidth=1, color='red')  # reference line
+    plt.xlabel("Actual MedHouseVal")
+    plt.ylabel("Predicted MedHouseVal")
+    plt.title(title)
+    plt.tight_layout()
+    plt.show()
+
+# Plot training predictions vs actual
+scatter_with_reference(y_train, y_pred_train, "Predicted vs Actual — Train")
