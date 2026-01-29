@@ -1,2 +1,2 @@
 # A02-mii24004-mjb24001
-This repository contains the materials for assignment A02. Together, we are building a NN with California housing data. 
+This repository contains the materials for assignment A02, completed by Anwar and Madi. This code trains a neural network regression model with California housing data. To run this code, all required packages must be imported. California housing data is split into a train, test, and validation set. The MLPRegressor model is run with two hidden-layers, a relu activation function, and early-stopping to prevent overfitting. The train and test prediction is plotted vs the actual data and saved in the figures directory. Performance metrics for the train and test prediction are printed below each figure. 
