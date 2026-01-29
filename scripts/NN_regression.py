@@ -1,9 +1,5 @@
-# Import necessary packages
-
 import warnings
 import os
-warnings.filterwarnings("ignore")  # keep output clean; MLP may warn about convergence
-
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -17,7 +13,7 @@ import matplotlib.pyplot as plt
 # Import California housing data
 
 data = fetch_california_housing(as_frame=True)
-print(data.DESCR)  # dataset description
+print(data.DESCR) 
 X = data.frame.drop(columns=["MedHouseVal"])
 y = data.frame["MedHouseVal"]
 
@@ -99,4 +95,3 @@ scatter_with_reference(y_test, y_pred_test, "Predicted vs Actual — Test", "tes
 print(f"Test R2: {r2_score(y_test, y_pred_test):.3f}")
 print(f"Test MAE: {mean_absolute_error(y_test, y_pred_test):.3f}")
 print(f"Test MAPE: {mean_absolute_percentage_error(y_test, y_pred_test):.3f}")
-
