@@ -22,15 +22,15 @@ To ensure high performance and prevent overfitting, the following configurations
 Follow these steps to reproduce the results:
 
 ### 1. Install the requirements
-```bash
+
 pip install -r requirements.txt
 
 ### 2. Change your working directory
-```bash
+
 cd A02-mii24004-mjb24001
 
 ### 3. Run the code
-```bash
+
 python scripts/NN_regression.py
 
 ---
